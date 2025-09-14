@@ -46,6 +46,33 @@ switch(game_mode){
     default: 
         printf("Invalid Mode try again!");
 }
+
+    return 0;
+}
+char** initialize_board(int n) {
+    char* board = (char*)malloc(n * sizeof(char*));
+    for (int i = 0; i < n; i++) {
+        board[i] = (char*)malloc(n * sizeof(char));
+        for (int j = 0; j < n; j++) {
+            board[i][j] = ' ';
+        }
+    return board;
+}
+void display_board(char** board, int n) {
+    printf("  ");
+    for (int column = 0; column < n; column++) {
+        printf(" %d ", column);
+    }
+    printf("\n");
+    
+    for (int row = 0; row < n; row++) {
+        printf("%d ", row);
+        for (int column = 0; column < n; column++) {
+            printf("|%c", board[row][column]);
+        }
+        printf("|\n");
+    }
+}
 void Two_player_game(int n){
 
 }
