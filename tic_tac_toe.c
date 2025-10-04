@@ -1,89 +1,88 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
-char** initialize_board(int n);
-void display_board(char** board, int n);
-int is_valid_move(char** board, int n, int row, int column);
-int check_win(char** board, int n, char symbol);
-int check_draw(char** board, int n);
-void log_file(FILE* logfile, char** board, int n);
-void computer_move(char** board, int n, int *row, int *column);
+// Global variables
+char **board;
+int size;
+FILE *logFile;
 
-void Two_player_game(int n);
-void User_vs_Computer_game(int n);
-void Multiplayer_game(int n);
-
-int main() {
-    int n;
-    int game_mode;
-
-    printf("** Tic Tac Toe Game ***\n");
-
-    printf("Enter board size n (3 <= n <= 10): ");
-    scanf("%d", &n);
-    if (n < 3 || n > 10) {
-        printf("Invalid board size!\n");
-        return 0;
-    }
-
-    printf("\n* Game Modes *\n");
-    printf("1. Two players (User VS User)\n");
-    printf("2. User vs Computer\n");
-    printf("3. Three players\n");
-    printf("Select game mode: ");
-    scanf("%d", &game_mode);
-   
-switch(game_mode){
-    case 1: 
-        Two_player_game(n);
-        break;
-    case 2: 
-        User_vs_Computer_game(n);
-        break;
-    case 3: 
-        Multiplayer_game(n);
-        break;
-    default: 
-        printf("Invalid Mode try again!");
-}
-
-    return 0;
-}
-char** initialize_board(int n) {
-    char* board = (char*)malloc(n * sizeof(char*));
-    for (int i = 0; i < n; i++) {
-        board[i] = (char*)malloc(n * sizeof(char));
-        for (int j = 0; j < n; j++) {
+// Setup the board
+void initBoard(int n) {
+    size = n;
+    board = malloc(size * sizeof(char *));
+    for (int i = 0; i < size; i++) {
+        board[i] = malloc(size * sizeof(char));
+        for (int j = 0; j < size; j++)
             board[i][j] = ' ';
-        }
-    return board;
+    }
+    
+// Open a logfile
+    logFile = fopen("game_log.txt", "w");
+    if (!logFile)
+        printf("Warning:not open log file\n");
 }
-void display_board(char** board, int n) {
-    printf("  ");
-    for (int column = 0; column < n; column++) {
-        printf(" %d ", column);
+// Save board into a file
+void logBoard() {
+    if (!logFile) return;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++)
+            fprintf(logFile, "%c ", board[i][j]);
+        fprintf(logFile, "\n");
+    }
+    fprintf(logFile, "------\n");
+    fflush(logFile);
+}
+
+// Print the board on screen
+void drawBoard() {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            printf(" %c ", board[i][j]);
+            if (j < size - 1) printf("|");
+        }
+        printf("\n");
+        if (i < size - 1) {
+            for (int j = 0; j < size; j++) {
+                printf("---");
+                if (j < size - 1) printf("+");
+            }
+            printf("\n");
+        }
     }
     printf("\n");
-    
-    for (int row = 0; row < n; row++) {
-        printf("%d ", row);
-        for (int column = 0; column < n; column++) {
-            printf("|%c", board[row][column]);
+}
+
+// Check whether board is full
+int isFull() {
+    for (int i = 0; i < size; i++)
+        for (int j = 0; j < size; j++)
+            if (board[i][j] == ' ') return 0;
+    return 1;
+}
+
+// making a move
+void userMove(char sym) {
+    int m, n;
+    while (1) {
+        printf("Enter row and column (1-%d): ", size);
+        if (scanf("%d %d", &m, &n) != 2) {
+            while (getchar() != '\n');
+            printf("Invalid input \n");
+            continue;
         }
-        printf("|\n");
+        m--; n--;
+        if (m >= 0 && m < size && n >= 0 && n < size && board[m][n] == ' ') {
+            board[m][n] = sym;
+            if (logFile) 
+            fprintf(logFile, "%c played at row %d, column %d\n", sym, m+1, n+1);
+            break;
+        } else {
+            printf("Invalid move. Try again!\n");
+        }
     }
-}
-void Two_player_game(int n){
-
-}
-void User_vs_Computer_game(int n){
-
-}
-void Multiplayer_game(int n){
-
+    logBoard();
 }
 
-return 0;
- 
-}
 
