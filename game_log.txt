@@ -1,25 +1,27 @@
-X played at row 1, column 1
-X     
-      
-      
+X placed at row 1, column 1
+X             
+              
+              
+              
+              
+              
+              
 ------
-Computer O -> (2,2)
-X     
-  O   
-      
+O placed at row 2, column 2
+X             
+  O           
+              
+              
+              
+              
+              
 ------
-X played at row 2, column 1
-X     
-X O   
-      
-------
-Computer O -> (3,3)
-X     
-X O   
-    O 
-------
-X played at row 3, column 1
-X     
-X O   
-X   O 
+Computer Z -> (2,5)
+X             
+  O     Z     
+              
+              
+              
+              
+              
 ------
