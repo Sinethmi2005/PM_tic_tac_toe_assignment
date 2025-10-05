@@ -1,27 +1,25 @@
 X placed at row 1, column 1
-X             
-              
-              
-              
-              
-              
-              
+X     
+      
+      
 ------
-O placed at row 2, column 2
-X             
-  O           
-              
-              
-              
-              
-              
+Computer O -> (2,2)
+X     
+  O   
+      
 ------
-Computer Z -> (2,5)
-X             
-  O     Z     
-              
-              
-              
-              
-              
+X placed at row 1, column 2
+X X   
+  O   
+      
+------
+Computer O -> (3,2)
+X X   
+  O   
+  O   
+------
+X placed at row 1, column 3
+X X X 
+  O   
+  O   
 ------
