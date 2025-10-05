@@ -102,7 +102,7 @@ void computer_move(char **board, int size, char sym, FILE *logFile) {
     printf("Computer placed at (%d,%d)\n", row + 1, col + 1);
 
     if (logFile)
-        fprintf(logFile, "Computer %c -> (%d,%d)\n", sym, row + 1, col + 1);
+        fprintf(logFile, "Computer %c placed (%d,%d)\n", sym, row + 1, col + 1);
 
     log_board(board, size, logFile);
 }
@@ -113,18 +113,18 @@ int main() {
     FILE *logFile;
     char symbol[3] = {'X', 'O', 'Z'};
     char name[3][20];
-    int isComputer[3] = {0, 0, 0}; //check whether a human or computer
+    int isComputer[3] = {0, 0, 0};//check whether a human or computer
 
-    printf("   Welcome to Tic Tac Toe\n");
-    printf("___LET'S PLAY TIC_TAC_TOE!___");
+    printf("     Welcome to Tic Tac Toe\n");
+    printf("____ LET'S PLAY TIC_TAC_TOE! ____");
     printf("\n");
     printf("\nEnter the board size (3–10): ");
     scanf("%d", &size);
     if (size < 3 || size > 10) size = 3;
     char **board = init_Board(size, &logFile); //set up the board with empty spaces
 
-    printf("Select mode:\n1. User vs User\n2. User vs Computer\n3. 3 Players\nSelect a choice: ");
-    scanf("%d", &mode);    
+    printf("Select mode:\n1. User vs User\n2. User vs Computer\n3. 3 Players\nChoice: ");
+    scanf("%d", &mode);
     printf("\n");
 
 //set up the players based on game mode you choose
@@ -162,7 +162,7 @@ int main() {
 
 // Check if player won
         int win = 0;
-        char sym = symbol[chance]; //get current player's symbol
+        char sym = symbol[chance];//get current player's symbol
 
 // Checking columns
     for (int j = 0; j < size && win==0; j++) {
@@ -178,7 +178,6 @@ int main() {
                 break;
                 }
         }
-        
 // Checking rows
         for (int i = 0; i < size; i++) {
             int match = 1;
@@ -206,6 +205,9 @@ int main() {
         if (win) {
             draw_board(board, size);
             printf("%s is the winner!\n", name[chance]);
+            if (logFile)
+            fprintf(logFile, "%s is the winner!\n", name[chance]);
+
             break;
         }
 
@@ -224,7 +226,8 @@ int main() {
     }
     
     printf("-------------------------------\n");
-    printf("__Thanks for playing__\n");
+    printf("___Thanks for playing___\n");
     free_board(board, size, logFile);//release the memory
     return 0;
 }
+
